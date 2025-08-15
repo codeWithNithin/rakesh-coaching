@@ -12,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.2.1",
     "cross-env": "^10.0.0",
     "nodemon": "^3.1.10",
@@ -19,8 +20,12 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
     "winston": "^3.17.0"
   }
 }
