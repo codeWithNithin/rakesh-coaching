@@ -1,6 +1,5 @@
 # Welcome to MERN Pizza Delivery app
 
-
 ## How to start the app
 
 1. After cloning the project run npm i.
