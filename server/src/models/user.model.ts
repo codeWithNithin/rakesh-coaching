@@ -1,10 +1,24 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import type { NextFunction } from "express";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 import { config } from "../config/index.js";
 
-const userSchema = new mongoose.Schema({
+// 1️⃣ Interface for the fields in the collection
+interface IUser {
+  email: string;
+  userName: string;
+  password: string;
+}
+
+// 2️⃣ Interface for instance methods
+interface IUserMethods {
+  generateToken(): string;
+  comparePassword(password: string): Promise<boolean>;
+}
+
+
+const userSchema = new mongoose.Schema<IUser, Model<IUser, {}, IUserMethods>>({
   email: {
     type: String,
     required: true,
@@ -35,12 +49,16 @@ userSchema.methods.generateToken = function () {
     return;
   }
 
-  return jwt.sign({ id: this._id }, config.JWT_SECRET, {
+  const payload: JwtPayload = {
+    id: this._id,
+  }
+
+  return jwt.sign(payload, config.JWT_SECRET, {
     expiresIn: '1d',
     algorithm: "HS256",
   });
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser, Model<IUser, {}, IUserMethods>>("User", userSchema);
 
 export default User;

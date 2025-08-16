@@ -1,11 +1,11 @@
 import { Router } from "express";
 import AuthControllers from "../controllers/auth.controllers.js";
-import AuthServices from "../services/auth.services.js";
+import UserService from "../services/user.services.js";
 
 const router = Router();
 
-const authServices = new AuthServices()
-const authController = new AuthControllers(authServices);
+const userService = new UserService()
+const authController = new AuthControllers(userService);
 
 /**
  * @path: /auth/register
